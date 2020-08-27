@@ -1,0 +1,1 @@
+export CYPRESS_CRASH_REPORTS=0
