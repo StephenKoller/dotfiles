@@ -1,0 +1,23 @@
+! Exchange left Alt and left Win
+! - Currently handled by Gnome Tweaks
+! remove mod1 = Alt_L
+! remove mod4 = Super_L
+! add mod1 = Super_L
+! add mod4 = Alt_L
+
+! clear Control
+! keycode 66 = Control_L
+! add Control = Control_L
+! add Control = Control_R
+! keycode 37 = ISO_Level3_Shift
+
+keycode 66 = Mode_switch
+keysym h = h H Left
+keysym l = l L Right
+keysym k = k K Up
+keysym j = j J Down
+
+keycode 169 = Print
+
+! clear Lock
+! keysym Caps_Lock = Escape
