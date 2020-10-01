@@ -1,0 +1,221 @@
+[user]
+	email = stephenkoller@gmail.com
+	name = Stephen Koller
+[alias]
+	ec = "!f() { [ -f \"${XDG_CONFIG_HOME:-$HOME/.config}\"/dotfiles.conf ] && . \"${XDG_CONFIG_HOME:-$HOME/.config}\"/dotfiles.conf; git --git-dir=\"$dotfiles_dir\" config --global --edit; }; f"
+	ecl = config --edit
+
+	# log, current branch
+	l  = log --pretty=lc --graph
+	lo = log --pretty=lo --graph --date=human
+	ls = log --pretty=lo --graph --date=human --simplify-by-decoration
+	lf = log --pretty=lf --graph
+	ld = log --pretty=lf --graph --cc --stat
+	lp = log --pretty=lf --graph --cc --patch
+
+	# log, all branches+tags on all remotes
+	la  = log --pretty=lc --graph                                       --all
+	lao = log --pretty=lo --graph --date=human                          --all
+	las = log --pretty=lo --graph --date=human --simplify-by-decoration --all
+	laf = log --pretty=lf --graph                                       --all
+	lad = log --pretty=lf --graph --cc --stat                           --all
+	lap = log --pretty=lf --graph --cc --patch                          --all
+
+	# log, all branches+tags on remotes 'origin' and 'upstream'
+	lg  = log --pretty=lc --graph                                       --branches=* --tags=* --remotes=origin --remotes=upstream
+	lgo = log --pretty=lo --graph --date=human                          --branches=* --tags=* --remotes=origin --remotes=upstream
+	lgs = log --pretty=lo --graph --date=human --simplify-by-decoration --branches=* --tags=* --remotes=origin --remotes=upstream
+	lgf = log --pretty=lf --graph                                       --branches=* --tags=* --remotes=origin --remotes=upstream
+	lgd = log --pretty=lf --graph --cc --stat                           --branches=* --tags=* --remotes=origin --remotes=upstream
+	lgp = log --pretty=lf --graph --cc --patch                          --branches=* --tags=* --remotes=origin --remotes=upstream
+
+	# reflog
+	rl  = reflog --pretty=rlc
+	rlo = reflog --pretty=rlo
+	rlf = reflog --pretty=rlf
+	rld = reflog --pretty=rlf --stat
+
+	# stash
+	sl  = stash list --pretty=rlc
+	slo = stash list --pretty=rlo
+	slf = stash list --pretty=rlf
+	sld = stash list --pretty=rlf --stat
+	sls = stash show --patch
+
+	# inspection
+	sh = show --stat --cc --summary --patch
+	grep = grep -Ii
+
+	# diff
+	d = diff -c
+	ds = diff --find-renames --stat --cc -c
+	dc = diff --cached -c
+	dl = diff --cached -c HEAD~
+	du = diff --cached -c @{u}
+	dr = "!f() { git diff -c ${1:-HEAD}~..${1:-HEAD}; }; f"
+
+	# status
+	s = status
+	si = status --ignored
+	sa = status --ignored --untracked-files
+
+	# index
+	a = add
+	aa = add --all
+	au = add --update
+	ai = add --interactive
+	ap = add --patch
+	an = add --intent-to-add
+	u = reset HEAD --
+	up = reset --patch HEAD --
+
+	# commit
+	c = commit --verbose
+	cn = commit --verbose --no-verify
+	cc = commit --verbose -c
+	cf = commit --verbose --fixup
+	cs = commit --verbose --squash
+	ca = commit --verbose --amend
+	can = commit --verbose --amend --no-edit
+
+	# checkout
+	co = checkout
+	com = checkout master --
+	cod = checkout develop --
+	cob = checkout -b
+
+	# branch
+	b = branch
+	bc = branch --contains
+	bd = branch --delete --force
+	bl = branch -vv
+	bla = branch --all -vv
+
+	# tag
+	t = tag
+	tc = tag --contains
+	td = tag --delete
+
+	# network (in)
+	cl = clone
+	p = pull
+	f = fetch --tags
+	ff = fetch --force --tags
+	fa = fetch --all --tags
+	fp = fetch --prune --tags
+	ffp = fetch --prune --force --tags
+	fap = fetch --prune --all --tags
+	pfa = "!f() { git remote | xargs -I@ -P0 git fetch --tags \"$@\" @; }; f"
+
+	# network (out)
+	pu = push
+	pun = push --no-verify
+	puf = push --force-with-lease
+	puff = push --force
+
+	# submodule
+	sub = submodule
+	subu = submodule update --init --recursive
+
+	# merge
+	m = merge
+	ma = merge --abort
+	mc = merge --continue
+	mff = merge --ff-only
+	mnc = "!f() { git merge --no-commit --no-ff \"$@\"; EC=$?; git merge --abort; exit $EC; }; f"
+
+	# rebase
+	r = rebase
+	ra = rebase --abort
+	rc = rebase --continue
+	rq = rebase --quit
+	rs = rebase --skip
+	ret = rebase --edit-todo
+	rsh = rebase --show-current-patch
+
+	# interactive rebase
+	ri = rebase --interactive
+	riu = rebase --interactive @{u}
+	rim = rebase --interactive master
+	rid = rebase --interactive develop
+
+	# cherry-pick
+	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
+	cpq = cherry-pick --quit
+
+	# revert
+	rv = revert
+	rva = revert --abort
+	rvc = revert --continue
+	rvq = revert --quit
+
+	# reset
+	re = reset
+	res = reset --soft
+	reh = reset --hard
+
+	# tools
+	mt = mergetool
+	dt = difftool
+
+	# w-commands
+	which = branch --all --contains
+	which-tag = describe --always --contains
+	who = shortlog --summary --numbered --no-merges
+	whoami = "!echo $(git config --get user.name) '<'$(git config --get user.email)'>'"
+	watch = "!f() { watch -ctn 2 git \"${@:-l}\"; }; f"
+
+	# initialize repository in current directory
+	#    git this [<git-init-args>...]
+	this = "!f() { git init \"$@\" && git commit --message='Initialize' --allow-empty; }; f"
+
+	# show authors and and commit counts
+	#    git thanks [<git-log-args>...]
+	thanks = "!f() { git log --pretty=tformat:'%aN <%aE>' \"$@\" | sort | uniq -c | sort -rn; }; f"
+
+	# open GitHub repository in browser
+	#    git open [<remote>]
+	open = "!f() { URL=$(git config remote.${1:-origin}.url); xdg-open \"${URL%%.git}\"; }; f"
+
+	# set up remotes for fork
+	#    git fork [<old-remote> [<new-remote>]]
+	fork = "!f() { URL=$(git config remote.${1:-origin}.url); git remote set-url ${1:-origin} \"$(echo \"$URL\" | perl -pe 's/(?<=[:\\/])[^:\\/]+(?=\\/[^\\/]+$)/alfunx/')\"; git remote add ${2:-upstream} \"$URL\"; git config branch.master.remote ${2:-upstream}; git config branch.master.pushRemote ${1:-origin}; }; f"
+
+	# fetch and checkout a GitHub pull request / a GitLab merge request
+	#    git fetch-pr <remote> <number> [<branchname>]
+	#    git fetch-mr <remote> <number> [<branchname>]
+	fetch-pr = "!f() { [ $# -lt 2 ] && echo 'usage: git pr <remote> <number>' 1>&2 && exit 1; it fetch $1 pull/$2/head:${3:-pr-$1-$2} && git checkout ${3:-pr-$1-$2}; }; f"
+	fetch-mr = "!f() { [ $# -lt 2 ] && echo 'usage: git mr <remote> <number>' 1>&2 && exit 1; it fetch $1 merge-requests/$2/head:${3:-mr-$1-$2} && git checkout ${3:-mr-$1-$2}; }; f"
+
+	# track all pull-requests / merge-requests
+	#    git setup-fetch [<remote>]
+	setup-fetch = "!f() { git config --add remote.${1:-origin}.fetch \"+refs/pull/*/head:refs/remotes/${1:-origin}/pull-requests/*\"; git config --add remote.${1:-origin}.fetch \"+refs/merge-requests/*/head:refs/remotes/${1:-origin}/merge-requests/*\"; }; f"
+
+	# hard reset with commit before (use reflog to recover)
+	#    git wipe [<commit>]
+	wipe = "!f() { git add --all && git commit --quiet --message='WIPE-SAVEPOINT' && git reset ${1:-HEAD~} --hard && git clean -fd; }; f"
+
+	# hard reset and clean (unrecoverable)
+	nuke = "!git reset --hard HEAD && git clean -fd"
+
+	# generate tags file
+	ctags = "!$HOME/.config/git/hooks/ctags"
+
+	# create/extend gitignore file
+	gitignore = gitignore
+
+	# fzf commands
+	fbr = fzf-branch
+	fco = fzf-checkout
+	fcoc = "!f() { git fzf-print-sha | xargs git checkout; }; f"
+	fsha = fzf-print-sha
+	fshow = fzf-show-commit
+	fstash = fzf-show-stash
+	cof = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
+
+[pull]
+	rebase = false
+[core]
+	editor = vim
