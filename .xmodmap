@@ -11,13 +11,14 @@
 ! add Control = Control_R
 ! keycode 37 = ISO_Level3_Shift
 
-keycode 66 = Mode_switch
-keysym h = h H Left
-keysym l = l L Right
-keysym k = k K Up
-keysym j = j J Down
+! Caps lock as left control
+keycode 66 = Control_L
+keycode 43 = h H NoSymbol Left
+keycode 44 = j J NoSymbol Right
+keycode 45 = k K NoSymbol Up
+keycode 46 = l L NoSymbol Down
 
 keycode 169 = Print
 
 ! clear Lock
-! keysym Caps_Lock = Escape
+keysym Caps_Lock = Escape

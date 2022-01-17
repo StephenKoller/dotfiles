@@ -1,0 +1,2 @@
+set scrolloff=8
+

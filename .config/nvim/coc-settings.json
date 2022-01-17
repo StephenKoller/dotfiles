@@ -2,6 +2,7 @@
   "prettier.requireConfig": true,
   "eslint.autoFixOnSave": true,
   "suggest.noselect": false,
+  "diagnostic.checkCurrentLine": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "markdown",

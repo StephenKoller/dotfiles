@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/stephen/Dev/dev-systems/repos/data-tools'
+let g:netrw_dirhist_1='/home/stephen/Dev/dev-systems/repos/utility-belt/src/components/claimLabeler'
+let g:netrw_dirhist_0='/home/stephen/Dev/dev-systems/repos/utility-belt/src/components'
+let g:netrw_dirhist_9='/home/stephen/Dev/dev-systems/repos/utility-belt/src'
+let g:netrw_dirhist_8='/home/stephen/.config/nvim'
+let g:netrw_dirhist_7='/home/stephen/.config'
+let g:netrw_dirhist_6='/home/stephen/Dev/dev-systems/repos/data-tools'
+let g:netrw_dirhist_5='/home/stephen'
+let g:netrw_dirhist_4='/home/stephen/Dev/dev-systems/repos/base-images/data-tools-eks-builder'
+let g:netrw_dirhist_3='/home/stephen/Dev/dev-systems/repos/base-images'

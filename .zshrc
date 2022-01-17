@@ -1,19 +1,39 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/share/npm/bin:$PATH
-export PATH="$PATH:/home/stephenkoller/.nvm/versions/node/v12.16.2/bin/npm"
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/npm/bin:$PATH
+export PATH="$PATH:/home/stephen/.nvm/versions/node/v12.16.2/bin/npm"
+export PATH="$PATH:/home/stephen/.npm-global/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/Dev/blender-2.92.0-linux64:$PATH"
+export PATH="$HOME/Dev/DataGrip/bin:$PATH"
+export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$PATH:/home/stephen/.local/share/coursier/bin"
 
-alias npm='/home/stephenkoller/.nvm/versions/node/v12.16.2/bin/npm'
+#alias npm='/home/stephen/.nvm/versions/node/v12.16.2/bin/npm'
 alias pip='pip3'
 alias tmux='TERM=screen-256color-bce tmux'
+alias yarn='/home/stephen/.npm-global/bin/yarn'
+alias rslint='rslint_cli'
+alias cs='~/Dev/cs'
+
+gch() {
+ git checkout “$(git branch — all | fzf| tr -d ‘[:space:]’)”
+}
+
+[[ -s /home/stephen/.autojump/etc/profile.d/autojump.sh ]] && source /home/stephen/.autojump/etc/profile.d/autojump.sh
+
+autoload -U compinit && compinit -u
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/stephenkoller/.oh-my-zsh"
+export ZSH="/home/stephen/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+source ~/.oh-my-zsh/themes/ghostwheel/theme
+ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_MODE='nerdfont-complete'
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -73,7 +93,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git fzf-tab zsh-autosuggestions poetry)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,11 +105,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -107,7 +127,28 @@ if [ -f ~/.bash_aliases ]; then
 fi 
 
 setxkbmap -option 'caps:ctrl_modifier'
-xcape -e 'Caps_Lock=Escape'
+
+numprocesses=$(ps ax | rg 'xcape' | wc -l)
+if [[ $numprocesses -lt 2 ]] ; then
+  xcape -e 'Caps_Lock=Escape'
+fi
 
 eval "$(thefuck --alias)" 
-# eval "$(thefuck --alias --enable-experimental-instant-mode)" 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+cd ~/repos
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+source ~/.gstack/gstack_completion.sh
+[ -f "/home/stephen/.ghcup/env" ] && source "/home/stephen/.ghcup/env" # ghcup-env

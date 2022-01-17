@@ -55,7 +55,7 @@
 	dr = "!f() { git diff -c ${1:-HEAD}~..${1:-HEAD}; }; f"
 
 	# status
-	s = status
+	s = status -sb
 	si = status --ignored
 	sa = status --ignored --untracked-files
 
@@ -217,5 +217,9 @@
 
 [pull]
 	rebase = false
+[color]
+	ui = true
 [core]
-	editor = vim
+	editor = nvim
+[stash]
+	showPatch = true
