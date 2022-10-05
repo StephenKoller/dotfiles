@@ -7,13 +7,17 @@ export PATH="$HOME/Dev/blender-2.92.0-linux64:$PATH"
 export PATH="$HOME/Dev/DataGrip/bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$PATH:/home/stephen/.local/share/coursier/bin"
+export FLYCTL_INSTALL="/home/stephen/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 #alias npm='/home/stephen/.nvm/versions/node/v12.16.2/bin/npm'
 alias pip='pip3'
 alias tmux='TERM=screen-256color-bce tmux'
-alias yarn='/home/stephen/.npm-global/bin/yarn'
+# alias yarn='/home/stephen/.npm-global/bin/yarn'
 alias rslint='rslint_cli'
 alias cs='~/Dev/cs'
+
+fpath=(~/.zsh $fpath)
 
 gch() {
  git checkout “$(git branch — all | fzf| tr -d ‘[:space:]’)”
@@ -133,6 +137,7 @@ if [[ $numprocesses -lt 2 ]] ; then
   xcape -e 'Caps_Lock=Escape'
 fi
 
+# eval "$(thefuck --alias --enable-experimental-instant-mode)" 
 eval "$(thefuck --alias)" 
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
@@ -152,3 +157,18 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 source ~/.gstack/gstack_completion.sh
 [ -f "/home/stephen/.ghcup/env" ] && source "/home/stephen/.ghcup/env" # ghcup-env
+
+# opam configuration
+test -r /home/stephen/.opam/opam-init/init.zsh && . /home/stephen/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+source /home/stephen/.config/broot/launcher/bash/br
+
+# bun completions
+[ -s "/home/stephen/.bun/_bun" ] && source "/home/stephen/.bun/_bun"
+
+# Bun
+export BUN_INSTALL="/home/stephen/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PNPM_HOME="/home/stephen/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"

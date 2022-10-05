@@ -1,7 +1,25 @@
+alias pgstop='sudo systemctl stop postgresql@12-main.service'
+alias deno='~/.deno/bin/deno'
+alias cat='bat'
+alias ub='cd ~/repos/utility-belt'
+alias dt='cd ~/repos/data-tools'
+alias f='fuck'
+alias p='pnpm'
+alias pg='psql -d postgres -U stephen'
+alias gtack='gstack'
+alias oneq='sort -R ~/Documents/1-on-1-questions.txt | head -n 1' 
+alias mdkir='mkdir'
 alias ':q'='exit'
-alias v='~/Dev/nvim.appimage'
+alias ls='lsd -1 --group-dirs first'
+alias z='lazydocker'
+alias v='/usr/local/bin/nvim'
+alias nv='/usr/local/bin/neovide'
 alias vconf='v ~/.config/nvim/init.vim'
-alias vp='sudo openvpn --config ~/Documents/client.ovpn --auth-user-pass ~/Documents/.creds --auth-retry interact'
+#alias vp='sudo openvpn --config ~/Documents/client.ovpn --auth-user-pass ~/Documents/.creds --auth-retry interact'
+#alias vp='sudo openvpn --config ~/Documents/client.ovpn --auth-user-pass ~/Documents/.creds --auth-retry interact'
+alias vp='openvpn3 session-start --config groundspeed-new'
+alias vpd='openvpn3 session-manage --config groundspeed-new --disconnect'
+alias vpl='openvpn3 sessions-list'
 alias mg='mongo -uroot -p example --authenticationDatabase=admin localhost:20000/filetracker'
 alias de='docker exec -it '
 alias dtf='gstack project data-tools fixtures'
@@ -12,7 +30,13 @@ alias gsi='gstack inspect '
 alias gsc='gstack config '
 alias gst='gstack status'
 alias gsu='gstack update'
+alias gpr='git push && fuck -y && gh pr create -w'
 
+alias tsk='~/Dev/taskwarrior-tui/target/release/taskwarrior-tui'
+
+gstop() {
+  docker stop $(docker ps -a -q);
+}
 # gspb() {
 #   gstack project "$1" build
 # }
@@ -25,6 +49,9 @@ alias gsu='gstack update'
 #   gstack bundle "$1" start
 # }
 
+alias python='python3'
+
+alias grbd='gco dev && gp && gco - && git rebase dev'
 alias gcof='git cof'
 alias gec='git ec'
 alias gecl='git ecl'
@@ -76,7 +103,7 @@ alias gu='git u'
 alias gup='git up'
 alias gc='git c'
 alias gcn='git cn'
-alias gcc='git cc'
+# alias gcc='git cc'
 alias gcf='git cf'
 alias gcs='git cs'
 alias gca='git ca'
