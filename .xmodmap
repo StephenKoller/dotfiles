@@ -11,6 +11,10 @@
 ! add Control = Control_R
 ! keycode 37 = ISO_Level3_Shift
 
+! my keyboard's left super key is busted.
+! swapping right shift with left super.
+keycode 62 = Super_L
+
 ! Caps lock as left control
 keycode 66 = Control_L
 keycode 43 = h H NoSymbol Left
@@ -21,4 +25,5 @@ keycode 46 = l L NoSymbol Down
 keycode 169 = Print
 
 ! clear Lock
-keysym Caps_Lock = Escape
+! keysym Caps_Lock = Escape
+

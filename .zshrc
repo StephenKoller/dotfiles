@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/npm/bin:$PATH
 export PATH="$PATH:/home/stephen/.nvm/versions/node/v12.16.2/bin/npm"
@@ -5,10 +12,17 @@ export PATH="$PATH:/home/stephen/.npm-global/bin"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/Dev/blender-2.92.0-linux64:$PATH"
 export PATH="$HOME/Dev/DataGrip/bin:$PATH"
-export PATH="$HOME/.poetry/bin:$PATH"
+# export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$PATH:/home/stephen/.local/share/coursier/bin"
 export FLYCTL_INSTALL="/home/stephen/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
+export PATH="$HOME/Dev/zola/target/release:$PATH"
+export PATH="$HOME/Dev/zeit:$PATH"
+export ZEIT_DB=~/.config/zeit.db
+
+# export NPM_TOKEN="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"
+# export NPM_TOKEN="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"
+export NPM_TOKEN="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"
 
 #alias npm='/home/stephen/.nvm/versions/node/v12.16.2/bin/npm'
 alias pip='pip3'
@@ -36,7 +50,8 @@ export ZSH="/home/stephen/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 source ~/.oh-my-zsh/themes/ghostwheel/theme
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLEVEL9K_MODE='nerdfont-complete'
 
 # Set list of themes to pick from when loading at random
@@ -97,7 +112,8 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf-tab zsh-autosuggestions poetry)
+# plugins=(git fzf-tab zsh-autosuggestions poetry)
+plugins=(git fzf-tab zsh-autosuggestions zsh-syntax-highlighting thefuck)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -112,7 +128,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -132,13 +148,16 @@ fi
 
 setxkbmap -option 'caps:ctrl_modifier'
 
+# turn on `vi` mode for readline
+set -o vi
+
 numprocesses=$(ps ax | rg 'xcape' | wc -l)
 if [[ $numprocesses -lt 2 ]] ; then
   xcape -e 'Caps_Lock=Escape'
 fi
 
 # eval "$(thefuck --alias --enable-experimental-instant-mode)" 
-eval "$(thefuck --alias)" 
+eval "$(thefuck --alias)"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -151,7 +170,7 @@ export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-cd ~/repos
+# cd ~/repos
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
@@ -172,3 +191,24 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 export PNPM_HOME="/home/stephen/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+function teleport-login() {
+  tsh login --proxy=groundspeed.teleport.sh:443
+}
+
+function teleport-pypi() {
+  # Thank you Rick for this snippet
+  tsh app login pypi --proxy=groundspeed.teleport.sh:443 > ~/pypi-login
+  cat $(cat ~/pypi-login | grep '\-\-cert' | cut -d ' ' -f4) > ~/pypi-cert
+  cat $(cat ~/pypi-login | grep '\-\-key' | cut -d' ' -f4) >> ~/pypi-cert
+  pip3 config set global.client-cert ~/pypi-cert
+  rm -f ~/pypi-login
+}
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
